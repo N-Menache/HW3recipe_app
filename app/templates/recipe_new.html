@@ -1,0 +1,73 @@
+
+<head>
+    <title>Recipe Form Webpage</title>
+</head>
+<body>
+    <h1>Recipe Form</h1>
+    <form action="" method="POST" novalidate>
+        {{form.hidden_tag()}}
+        <p> {{form.title.label}}</br>
+        {{form.title()}}</p>
+
+	 <div>
+            {% if form.title.errors %}
+                <ul style="color: red;">
+                    {% for error in form.title.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+         </div>
+
+        <p>{{form.description.label}}</br>
+        <p>{{form.description()}}</p>
+
+	 <div>
+            {% if form.description.errors %}
+                <ul style="color: red;">
+                    {% for error in form.description.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+         </div>
+
+	<p>{{form.ingredients.label}}</br>
+        <p>{{form.ingredients()}}</p>
+
+	 <div>
+            {% if form.ingredients.errors %}
+                <ul style="color: red;">
+                    {% for error in form.ingredients.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+         </div>
+
+	<p>{{form.instructions.label}}</br>
+        <p>{{form.instructions()}}</p>
+
+	 <div>
+            {% if form.instructions.errors %}
+                <ul style="color: red;">
+                    {% for error in form.instructions.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+       	 </div>
+
+        <p>{{form.submit()}}</p>
+    </form>
+    <ul>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <li style="color: green;">{{ message }}</li>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </ul>
+</body>
+</html>

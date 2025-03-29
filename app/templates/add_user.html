@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+    <title>Add user Webpage</title>
+</head>
+<body>
+    <h1>Enter User Information</h1>
+
+    <!-- Create a form where users can enter their name, password, and email -->
+	<form action="" method="POST" novalidate>
+    {{form.hidden_tag()}}
+	<label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+    <ul>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <li style="color: green;">{{ message }}</li>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </ul>
+</body>
+</html>

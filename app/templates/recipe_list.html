@@ -1,0 +1,16 @@
+
+<head>
+    <title>Recipe List Webpage</title>
+</head>
+<body>
+    <h1>Recipe List</h1>
+
+    <ul>
+        {% for recipe in recipe_list %}
+            <li>{{ recipe.title }}</li>
+        {% else %}
+            <li>No recipes found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

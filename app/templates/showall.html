@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page - My Blog</title>
+</head>
+<body>
+    <h1>User Favorites</h1>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Movie</th>
+                <th>UserID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for favorites in favorites %}
+                <tr>
+                    <td>{{ favorites.movie }}</td>
+                    <td>{{ favorites.user_id }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">No entries found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
