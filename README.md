@@ -15,6 +15,7 @@ This is a web application that allows users to create view, update and delete fo
 # The application includes the following pages:
 
 - **/adduser**
+- 
 New users navigate to this page first to add their username, email, and password. All fields are required.
 
 - **/login**
