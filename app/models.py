@@ -1,3 +1,5 @@
+# This file defines data models used by the Recipe application to interact with the database
+
 from app import db
 from datetime import datetime
 
