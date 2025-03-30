@@ -9,7 +9,7 @@
     <!-- Create a form where users can enter their name, password, and email -->
 	<form action="" method="POST" novalidate>
 	
-	<!--Special template function used to render hidden fields in the form --> 
+	<!--Ensure that Cross-Site Request Forgery protection is enabled --> 
     {{form.hidden_tag()}}
     
 	<label for="name">Name:</label>

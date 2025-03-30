@@ -5,7 +5,8 @@
 <body>
     <h1>Sign In</h1>
     <form action="" method="POST" novalidate>
-        <!--Special template function used to render hidden fields in the form --> 
+    
+    	<!--Ensure that Cross-Site Request Forgery protection is enabled --> 
         {{form.hidden_tag()}}
         
         <p> {{form.username.label}}</br>

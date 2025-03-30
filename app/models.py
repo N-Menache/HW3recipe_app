@@ -18,8 +18,3 @@ class Recipe(db.Model):
     instructions = db.Column(db.Text)
     username = db.Column(db.Text)
     created = db.Column(db.DateTime, default=datetime.utcnow)
-
-class Favorites(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    movie = db.Column(db.String(40))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

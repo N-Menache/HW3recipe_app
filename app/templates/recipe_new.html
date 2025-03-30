@@ -6,9 +6,9 @@
     <h1>Recipe Form</h1>
     <form action="" method="POST" novalidate>
     
-        <!--Special template function used to render hidden fields in the form --> 
+    	<!--Ensure that Cross-Site Request Forgery protection is enabled --> 
         {{form.hidden_tag()}}
-        
+          
         <p> {{form.title.label}}</br>
         {{form.title()}}</p>
 

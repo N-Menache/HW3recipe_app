@@ -37,70 +37,70 @@ def logout():
 def login():
     global logged_in_user
     form = LoginForm()
-    if form.validate_on_submit():
-        # If the login information is valid, find the user in the User table based on user name and password
-        query = db.session.query(User).filter(User.name == form.username.data, User.password == form.password.data)
-        # If the user logging in was found in the User table, login the user
-        if query.count() > 0:
-            logged_in_user = query.first()
-            return f"User {form.username.data} is now logged in."
-        # Otherwise display message if the user is not found or an invalid password
-        else:
-            query = db.session.query(User).filter(User.name == form.username.data)
+    # Check for POST method submitting form
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            # If the login information is valid, find the user in the User table based on user name and password
+            query = db.session.query(User).filter(User.name == form.username.data, User.password == form.password.data)
+            # If the user logging in was found in the User table, login the user
             if query.count() > 0:
-                flash('Invalid password.')
+                logged_in_user = query.first()
+                return f"User {form.username.data} is now logged in."
+            # Otherwise display message if the user is not found or an invalid password
             else:
-                flash('Unknown user.')
-    form.username.data = ""
-    form.password.data = ""
+                query = db.session.query(User).filter(User.name == form.username.data)
+                if query.count() > 0:
+                    flash('Invalid password.')
+                else:
+                    flash('Unknown user.')
+        else:
+            flash("All fields are required.")
     return render_template("login.html", form=form)
 
 @myapp_obj.route('/adduser', methods=['GET', 'POST'])
 def add_user():
     # Get the user data
     form = UserForm()
-    if form.validate_on_submit():
-         # If the Add User information is valid, see if user is already the User table based in user name and password
-        name = request.form.get('name')
-        email = request.form.get('email')
-        password = request.form.get('password')
-        query = db.session.query(User).filter(User.name == name, User.password == password)
-        # If the user has not been found in the User table, add them
-        if query.count() == 0:
-            user = User(name=name, email=email, password=password)
-            db.session.add(user)
-            db.session.commit()
+    # Check for POST method submitting form
+    if request.method == 'POST':
+        if form.validate_on_submit():
+             # If the Add User information is valid, see if user is already the User table based in user name and password
+            name = request.form.get('name')
+            email = request.form.get('email')
+            password = request.form.get('password')
+            query = db.session.query(User).filter(User.name == name, User.password == password)
+            # If the user has not been found in the User table, add them
+            if query.count() == 0:
+                user = User(name=name, email=email, password=password)
+                db.session.add(user)
+                db.session.commit()
+                flash("User sucessfully added.")
+            else:
+                flash("Username already exists.")
         else:
-            flash("Username already exists.")
+            flash("All fields are required.")
     return render_template("add_user.html",  form=form)
 
 @myapp_obj.route("/recipe/new", methods=['GET', 'POST'])
 def recipe_new():
     if (logged_in_user) :
         form = RecipeForm()
-        if form.validate_on_submit():
-            # If the recipe information is valid, add the Recipe to the Recipe table
-            title = request.form.get('title')
-            description = request.form.get('description')
-            ingredients = request.form.get('ingredients')
-            instructions = request.form.get('instructions')
-            form.title.data = ""
-            form.description.data = ""
-            form.ingredients.data = ""
-            form.instructions.data = ""
-            recipe = Recipe(title=title, description=description, ingredients=ingredients, instructions=instructions, username=logged_in_user.username)
-            db.session.add(recipe)
-            db.session.commit()
-            flash('Form successfully submitted!')
-            return render_template('recipe_new.html', form=form)
-        else:
-            # Otherwise indicate to user to fill in required fields correctly
-            form.title.data = ""
-            form.description.data = ""
-            form.ingredients.data = ""
-            form.instructions.data = ""
-            flash('Please fill in all required fields.', category='warning')
-            return render_template('recipe_new.html', form=form)
+        # Check for POST method submitting form
+        if request.method == 'POST':
+            if form.validate_on_submit():
+                # If the recipe information is valid, add the Recipe to the Recipe table
+                title = request.form.get('title')
+                description = request.form.get('description')
+                ingredients = request.form.get('ingredients')
+                instructions = request.form.get('instructions')
+                recipe = Recipe(title=title, description=description, ingredients=ingredients, instructions=instructions, username=logged_in_user.name)
+                db.session.add(recipe)
+                db.session.commit()
+                flash('Form successfully submitted!')
+            else:
+                # Otherwise indicate to user to fill in required fields correctly
+                flash('Please fill in all required fields.', category='warning')
+        return render_template('recipe_new.html', form=form)
     else:
         return ("This page requires a login.")
     
