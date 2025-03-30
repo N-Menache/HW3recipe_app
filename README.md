@@ -14,30 +14,29 @@ This is a web application that allows users to create view, update and delete fo
 ## Project Description
 # The application includes the following pages:
 
-- **/adduser**
-- 
+- **/adduser**  
 New users navigate to this page first to add their username, email, and password. All fields are required.
 
-- **/login**
+- **/login**  
 Users login with their username and password added in the /adduser page. All fields are required.
 Users cannot login if another user is already logged in.
 
-- **/logout**
+- **/logout**  
 Currently logged in user is logged out by going to this page.
 
-- **/**
+- **/**  
 Shows the name of the user currently logged in.
 
-- **/or/recipes**
+- **/or/recipes**  
 This page with an unordered list will show all of the names of the recipes you have.
 
-- **/recipe/new**
+- **/recipe/new**  
 This page will contain a form that will allow you to add a new recipe, including the title, description, ingredients, and instructions.
 
-- **/recipe/<integer>**
+- **/recipe/<integer>**  
 This page will return one recipe with the details provided in the /recipe/new page along with the recipe author and date and time created. The <integer> field represents the recipe number.
 
-- **/recipe/<integer>/delete**
+- **/recipe/<integer>/delete**  
 This page will delete the specific recipe. The <integer> field represents the recipe number
 
 ---
