@@ -7,7 +7,7 @@
 
     <ul>
         {% for recipe in recipe_list %}
-            <li>{{ recipe.title }}</li>
+            <li>({{ recipe.id}}) {{ recipe.title }}</li>
         {% else %}
             <li>No recipes found.</li>
         {% endfor %}

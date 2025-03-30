@@ -42,10 +42,17 @@ def login():
         if form.validate_on_submit():
             # If the login information is valid, find the user in the User table based on user name and password
             query = db.session.query(User).filter(User.name == form.username.data, User.password == form.password.data)
-            # If the user logging in was found in the User table, login the user
-            if query.count() > 0:
-                logged_in_user = query.first()
-                return f"User {form.username.data} is now logged in."
+            # If the user logging in was found in the User table, see if the user is already logged in or
+            # if another user is logged in
+            if query.count() > 0 :
+                if logged_in_user != None:
+                    if logged_in_user.name == form.username.data: 
+                        return f"User {form.username.data} is already logged in."
+                    else:
+                        return f"User {logged_in_user.name} is already logged in."
+                else:
+                    logged_in_user = query.first()
+                    return f"User {form.username.data} is now logged in."
             # Otherwise display message if the user is not found or an invalid password
             else:
                 query = db.session.query(User).filter(User.name == form.username.data)
@@ -93,6 +100,10 @@ def recipe_new():
                 description = request.form.get('description')
                 ingredients = request.form.get('ingredients')
                 instructions = request.form.get('instructions')
+                form.title.data = ""
+                form.description.data = ""
+                form.ingredients.data = ""
+                form.instructions.data = ""
                 recipe = Recipe(title=title, description=description, ingredients=ingredients, instructions=instructions, username=logged_in_user.name)
                 db.session.add(recipe)
                 db.session.commit()

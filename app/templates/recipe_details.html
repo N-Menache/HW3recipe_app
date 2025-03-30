@@ -4,21 +4,23 @@
 </head>
 <body>
     <h1>{{ recipe.title }} Recipe Details</h1>
+    
+    <h2>Recipe Number</h2>
+    <p>{{ recipe.id }}</p>
 
     <h2>Description</h2>
     <p>{{ recipe.description }}</p>
-    </br>
 
     <h2>Ingredients</h2>
     <p>{{ recipe.ingredients }}</p>
-    </br>
 
     <h2>Instructions</h2>
     <p>{{ recipe.instructions }}</p>
-    </br>
+    
+    <h2>Author</h2>
+    <p>{{ recipe.username }}</p>
 
     <h2>Date and Time Created</h2>
     <p>{{ recipe.created }}</p>
-    </br>
 </body>
 </html>
