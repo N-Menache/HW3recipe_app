@@ -15,29 +15,29 @@ This is a web application that allows users to create view, update and delete fo
 # The application includes the following pages:
 
 /adduser
-# New users navigate to this page first to add their username, email, and password. All fields are required.
+New users navigate to this page first to add their username, email, and password. All fields are required.
 
 /login
-# Users login with their username and password added in the /adduser page. All fields are required.
-# Users cannot login if another user is already logged in.
+Users login with their username and password added in the /adduser page. All fields are required.
+Users cannot login if another user is already logged in.
 
 /logout
-# Currently logged in user is logged out by going to this page.
+Currently logged in user is logged out by going to this page.
 
 /
-# Shows the name of the user currently logged in.
+Shows the name of the user currently logged in.
 
 /or/recipes
-# This page with an unordered list will show all of the names of the recipes you have.
+This page with an unordered list will show all of the names of the recipes you have.
 
 /recipe/new
-# This page will contain a form that will allow you to add a new recipe, including the title, description, ingredients, and instructions.
+This page will contain a form that will allow you to add a new recipe, including the title, description, ingredients, and instructions.
 
 /recipe/<integer>
-# This page will return one recipe with the details provided in the /recipe/new page along with the recipe author and date and time created. The <integer> field represents the recipe number.
+This page will return one recipe with the details provided in the /recipe/new page along with the recipe author and date and time created. The <integer> field represents the recipe number.
 
 /recipe/<integer>/delete
-# This page will delete the specific recipe. The <integer> field represents the recipe number
+This page will delete the specific recipe. The <integer> field represents the recipe number
 
 ---
 
