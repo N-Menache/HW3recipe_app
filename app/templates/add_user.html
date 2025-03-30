@@ -1,13 +1,17 @@
+<!-- This is the HTML file for the Add User webpage -->
 <!DOCTYPE html>
 <head>
-    <title>Add user Webpage</title>
+    <title>Add User Webpage</title>
 </head>
 <body>
     <h1>Enter User Information</h1>
 
     <!-- Create a form where users can enter their name, password, and email -->
 	<form action="" method="POST" novalidate>
+	
+	<!--Special template function used to render hidden fields in the form --> 
     {{form.hidden_tag()}}
+    
 	<label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
 
@@ -20,6 +24,7 @@
         <input type="submit" value="Submit">
     </form>
     <ul>
+        <!-- This part displays flash messages from the route function -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}

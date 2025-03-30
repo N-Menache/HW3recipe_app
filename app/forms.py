@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, validators, TextAreaField
 from wtforms.validators import InputRequired, Length
 
+# This file defines data models used by the Recipe application to interact with the database 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[validators.DataRequired()])
     password = PasswordField('Password', validators=[validators.Length(min=4, max=35)])

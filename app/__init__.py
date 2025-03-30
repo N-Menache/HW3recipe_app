@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
 
+# Set up a basic Flask application with a SQLAlchemy database integration.
 myapp_obj = Flask(__name__)
 
 basedir = os.path.abspath(os.path.dirname(__file__))

@@ -7,8 +7,10 @@ from app.forms import LoginForm, RecipeForm, UserForm
 from app.models import User, Recipe
 from app import db
 
+# This global variable idicates who is logged in currently. None indicates no one is logged in.
 logged_in_user = None 
 
+# This route is for main page. Displays which user is currently logged in.
 @myapp_obj.route("/")
 def main():
     db.create_all()
@@ -17,9 +19,11 @@ def main():
     else:
         return "No user is currently logged in."
 
+# This route is used to logout the current user
 @myapp_obj.route("/logout")
 def logout():
     global logged_in_user
+    # If there is a user currently logged in, they are logged out.
     if (logged_in_user):
         username = logged_in_user.name
         logged_in_user = None
@@ -32,18 +36,19 @@ def login():
     global logged_in_user
     form = LoginForm()
     if form.validate_on_submit():
+        # If the login information is valid, find the user in the User table based on user name and password
         query = db.session.query(User).filter(User.name == form.username.data, User.password == form.password.data)
+        # If the user logging in was found in the User table, login the user
         if query.count() > 0:
             logged_in_user = query.first()
             return f"User {form.username.data} is now logged in."
+        # Otherwise display message if the user is not found or an invalid password
         else:
             query = db.session.query(User).filter(User.name == form.username.data)
             if query.count() > 0:
                 flash('Invalid password.')
             else:
                 flash('Unknown user.')
-    else:
-        print("Username field must have data abd Password must be 4 to 35 characters.")
     form.username.data = ""
     form.password.data = ""
     return render_template("login.html", form=form)
@@ -52,41 +57,27 @@ def login():
 def add_user():
     # Get the user data
     form = UserForm()
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            name = request.form.get('name')
-            email = request.form.get('email')
-            password = request.form.get('password')
-            print ({name})
-            print ({email})
-            print ({password})
-            query = db.session.query(User).filter(User.name == name, User.password == password)
-            if query.count() == 0:
-                user = User(name=name, email=email, password=password)
-                db.session.add(user)
-                db.session.commit()
-                print ("User added.")
-            else:
-                print ("Username already exists.")
-                flash("Username already exists.")
+    if form.validate_on_submit():
+         # If the Add User information is valid, see if user is already the User table based in user name and password
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        query = db.session.query(User).filter(User.name == name, User.password == password)
+        # If the user has not been found in the User table, add them
+        if query.count() == 0:
+            user = User(name=name, email=email, password=password)
+            db.session.add(user)
+            db.session.commit()
         else:
-            print ("Not valid form.")
+            flash("Username already exists.")
     return render_template("add_user.html",  form=form)
-
-@myapp_obj.route("/showall")
-def showall():
-    #query = db.session.query(User).filter(User.username == login_username, User.password == login_password)
-    #if query.count() > 0:
-    #     favorites = Favorites.query.all()
-    #     return render_template('showall.html', favorites=favorites)
-    #else: 
-    return "Username and password do not match"
 
 @myapp_obj.route("/recipe/new", methods=['GET', 'POST'])
 def recipe_new():
     if (logged_in_user) :
         form = RecipeForm()
         if form.validate_on_submit():
+            # If the recipe information is valid, add the Recipe to the Recipe table
             title = request.form.get('title')
             description = request.form.get('description')
             ingredients = request.form.get('ingredients')
@@ -101,6 +92,7 @@ def recipe_new():
             flash('Form successfully submitted!')
             return render_template('recipe_new.html', form=form)
         else:
+            # Otherwise indicate to user to fill in required fields correctly
             form.title.data = ""
             form.description.data = ""
             form.ingredients.data = ""
@@ -112,7 +104,9 @@ def recipe_new():
     
 @myapp_obj.route("/or/recipes")
 def recipe_list():
+    # If there is no user logged in, restrict access to this page
     if (logged_in_user) :
+        # Query the recipe list  and send to the html template to display the recipe titles
         recipe_list = Recipe.query.all()
         return render_template('recipe_list.html', recipe_list=recipe_list)
     else:
@@ -121,7 +115,10 @@ def recipe_list():
 
 @myapp_obj.route("/recipe/<int:id>")
 def recipe_details(id):
+    # If there is no user logged in, restrict access to this page
     if (logged_in_user) :
+        # Display the detailed recipe imformation if recipe number exists
+        # Alert user if no recipes found or recipe number not found
         if ( db.session.query(Recipe).count() == 0 ):
             return ("No recipes found.")
         else:
@@ -135,7 +132,10 @@ def recipe_details(id):
     
 @myapp_obj.route("/recipe/<int:id>/delete")
 def recipe_delete(id):
+    # If there is no user logged in, restrict access to this page
     if (logged_in_user) :
+        # Delete specified if recipe number exists
+        # Alert user if no recipes found or recipe number not found
         if ( db.session.query(Recipe).count() == 0 ):
             return ("No recipes found.")
         else:

@@ -1,11 +1,13 @@
-
+<!-- This is the HTML file for the login webpage -->
 <head>
     <title>Home Page - my blog</title>
 </head>
 <body>
     <h1>Sign In</h1>
     <form action="" method="POST" novalidate>
+        <!--Special template function used to render hidden fields in the form --> 
         {{form.hidden_tag()}}
+        
         <p> {{form.username.label}}</br>
         {{form.username()}}</p>
 
@@ -16,6 +18,7 @@
         <p>{{form.remember_me()}}</p>
     </form>
     <ul>
+        <!-- This part displays flash messages from the route function -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}

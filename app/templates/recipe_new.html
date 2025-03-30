@@ -1,11 +1,14 @@
-
+<!-- This is the HTML file for the Recipe Form webpage -->
 <head>
     <title>Recipe Form Webpage</title>
 </head>
 <body>
     <h1>Recipe Form</h1>
     <form action="" method="POST" novalidate>
+    
+        <!--Special template function used to render hidden fields in the form --> 
         {{form.hidden_tag()}}
+        
         <p> {{form.title.label}}</br>
         {{form.title()}}</p>
 
@@ -61,6 +64,7 @@
         <p>{{form.submit()}}</p>
     </form>
     <ul>
+        <!-- This part displays flash messages from the route function -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
