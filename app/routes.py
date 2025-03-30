@@ -17,9 +17,9 @@ logged_in_user = None
 def main():
     db.create_all()
     if (logged_in_user):    
-        return f"User {logged_in_user.name} is currently logged in."
+        return f"User {logged_in_user.name} is currently logged in. Refer to ReadMe.md for project information."
     else:
-        return "No user is currently logged in."
+        return "No user is currently logged in. Refer to ReadMe.md for project information."
 
 # This route is used to logout the current user
 @myapp_obj.route("/logout")
